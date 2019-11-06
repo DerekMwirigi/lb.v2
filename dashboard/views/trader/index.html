@@ -1,0 +1,89 @@
+<div class="container-fluid  dashboard-content">
+    <div class="row"><!--hidden="hidden"-->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <h2 class="pageheader-title">TRADERS</h2>
+                <p class="pageheader-text">Manage system Traders</p>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);" class="breadcrumb-link">Manage system Traders</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header" hidden="hidden">Traders</h5>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="tTraders" class="table"><!--table blueTable   table-striped table-bordered first-->
+                            <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th>#</th>
+                                    <th>Business Name</th>
+                                    <th>Full Name</th>
+                                    <th>Gender</th>
+                                    <th>Phone No</th>
+                                    <th>Pin</th>
+                                    <th>Status</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <p id="pLoading">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script lang="javascript">
+    $(document).ready(function () {
+        $('#tTraders').fadeOut('slow')
+        xit.request.get(null, null, endpoints.data.traders).then(function (response) {
+            var data = []
+            response = JSON.parse(response)
+            for (let key in response) {
+                let traderModel = response[key]
+                traderModel.code = key
+                data.push(traderModel)
+            }
+            data.pop()
+            $('#tTraders').fadeIn('slow')
+            $('#tTraders').xitTable({
+                data:data,
+                columns: [
+                    { data: "code" },
+                    { data: "businessName" },
+                    { data: "fullName" },
+                    { data: "gender" },
+                    { data: "phoneNumber" },
+                    { data: "pin" },
+                    { data: "status" },
+                    {
+                        data: "code", htmlOptions: [
+                            {
+                                element: "<button data onclick='viewTrader(this)' class='xit-table-btn view'>View</button> "
+                            }
+                        ]
+                    }
+                ]
+            })
+            $('#pLoading').fadeOut('slow')
+        }).catch(function (ex){
+            alert(ex)
+        })
+    })
+    
+    function viewTrader (elem) {
+        let code = $(elem).attr('data')
+        xit.storage.saveItem('traderModel', JSON.stringify({
+            code:code
+        }))
+        xit.ui.openview('GET', null, null, 'views/trader/view.html', '#panelMainContent', true)
+    }
+</script>

@@ -1,0 +1,39 @@
+<div class="row" id="dvNewWhats">
+
+</div>
+<script>
+    $(document).ready(function () {
+        var userModel = JSON.parse(xit.storage.getValue('loggedInUser'))
+        getNewWhats('config/new_whats.config.json') 
+    })
+    function getNewWhats (newWhatsFile){
+        xit.files.readJsonFile(newWhatsFile).then(function (content){
+            var htmlContent = ''
+            content.forEach(whatItemModel => {
+                htmlContent += '<div class="col-md-3">'
+                    htmlContent += '<div class="card card-figure has-hoverable" style="cursor: pointer;" onclick="newWhatClick(this, null)" view="' + whatItemModel.view + '">'
+                    htmlContent += '<img class="card-img-top img-fluid" src="' + whatItemModel.image + '" style="height: 80px; width: 80px; margin: 0 auto;" alt="Card image cap">'
+                        htmlContent += '<div class="card-body">'
+                            htmlContent += '<h4 class="card-title">' + whatItemModel.label + '</h4>'
+                            htmlContent += '<p class="card-text" hidden> </p>'
+                            htmlContent += '<a href="#" class="btn btn-primary" hidden>Go somewhere</a>'
+                        htmlContent += ' </div>'
+                     htmlContent += '</div>'
+                htmlContent += '</div>'
+            })
+            $('#dvNewWhats').append(htmlContent)
+        }).catch(function (error){
+            alert(error)
+        })
+    }
+    function newWhatClick(view, payLoad) {
+        var viewItems = $(view).attr('view').split("|")
+        view = viewItems[0]
+        if (typeof viewItems[1] !== 'undefined') {
+            xit.ui.openmodal('POST', null, payLoad, view, '#modalL', true)
+        } else {
+            $('#modalL').modal('hide')
+            xit.ui.openview('POST', null, payLoad, view, '#panelMainContent', true)
+        }
+    }
+</script>

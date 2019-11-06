@@ -1,0 +1,136 @@
+<div class="container-fluid  dashboard-content">
+    <div class="row">
+        <!--hidden="hidden"-->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <h2 class="pageheader-title">Account profile</h2>
+                <p class="pageheader-text">...</p>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);" class="breadcrumb-link">Edit your account details</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" hidden="hidden">Account Profile information & editing</h4>
+                    <div class="form-sample">
+                        <section id="svElems">
+                            <div class="row">
+                                <div class="col-md-6" id="dvElems"
+                                    style="border: solid 1px lightgray; padding: 5px; margin: 1px;">
+                                    <h4 class="card-title">Basic information</h4>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">First Name</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" value="" id="firstName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Last Name</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" value="" id="lastName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Email</label>
+                                        <div class="col-sm-7">
+                                            <input type="email" class="form-control" value="" id="email" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Mobile</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" value="" id="mobile" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Id No</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" value="" id="idNo" />
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <button class="btn btn-warning mr-2" id="btUpdateinformation"
+                                            style="margin: 0 auto;">Update information</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" style="border: solid 1px lightgray; padding: 5px; margin: 1px;">
+                                    <h4 class="card-title">Change password</h4>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Old password</label>
+                                        <div class="col-sm-7">
+                                            <input type="password" class="form-control" value="" id="password"
+                                                autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">New password</label>
+                                        <div class="col-sm-7">
+                                            <input type="password" class="form-control" value="" id="newPassword"
+                                                autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Confirm password</label>
+                                        <div class="col-sm-7">
+                                            <input type="password" class="form-control" value="" id="confirmPassword"
+                                                autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <button class="btn btn-warning mr-2" id="btUpdatePassword"
+                                            style="margin: 0 auto;">Update password</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5"
+                                    style="border: solid 1px lightgray; padding: 5px; margin: 0 auto;">
+                                    <h4 class="card-title">Update avatar</h4>
+                                    <div class="form-group row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-6">
+                                            <div class="card card-figure has-hoverable" style="cursor: pointer;">
+                                                <img class="card-img-top img-fluid" src="" id="imgAvatar" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button class="btn btn-primary" id="btUpload" disabled>Upload</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" hidden>
+                                        <label class="col-sm-2 col-form-label">Imgs</label>
+                                        <div class="col-sm-5">
+                                            <input type="file" class="form-control" value="" id="fiImages"
+                                                accept="image/*" />
+                                        </div>
+                                        <input type="text" class="form-control" value="" id="uploadsURLs" hidden />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="Controllers/AccountController.js"></script>
+<script>
+    $(document).ready(function () {
+        var userModel = JSON.parse(xit.storage.getValue('loggedInUser'))
+        xit.ui.setvalues('#dvElems', {
+            types: 'input, select, textarea',
+            row: userModel
+        })
+
+        $('#imgAvatar').attr('src', userModel.avatar)
+    })
+</script>

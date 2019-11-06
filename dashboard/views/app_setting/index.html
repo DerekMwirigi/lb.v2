@@ -1,0 +1,46 @@
+<!-- Page Title Header Starts-->
+<div class="row page-title-header" hidden>
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Clients</h4>
+        </div>
+    </div>
+</div>
+<!-- Page Title Header Ends-->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-header" style="padding: 10px;">
+                <h4 class="card-title" id="h4SettingTitle">Here are the options available</h4>
+                <p class="card-description" id="pSettingSubTitle"> Options can be added on request <code> click on an option</code> </p>
+            </div>
+            <div class="card-body" style="padding: 10px;">
+                <div class="template-demo" id="dvOptions">
+
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12" id="dvSetting">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="Controllers/AppSettingController.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dvSetting').hide('slow')
+        AppSettingController.loadOptions('Config/app.settings.config.json')
+    })
+    function optionClick(view, payLoad) {
+        var viewItems = $(view).attr('view').split("|")
+        view = viewItems[0]
+        if (typeof viewItems[1] !== 'undefined') {
+            xit.ui.openmodal('POST', null, payLoad, view, '#modalL', true)
+        } else {
+            xit.ui.openview('POST', null, payLoad, view, '#dvSetting', false)
+        }
+    }
+</script>
